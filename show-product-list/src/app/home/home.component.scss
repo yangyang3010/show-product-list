@@ -1,0 +1,110 @@
+body {
+  background: linear-gradient(rgb(14, 17, 36), rgb(36, 26, 73));
+  color: white;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-item {
+  background-color: rgb(19, 23, 42);
+  border: 1px solid rgb(35, 39, 61);
+  border-radius: 20px;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.product-actions .btn {
+  margin: 5px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: 1fr; /* Single column on smaller screens */
+  }
+}
+
+//.intro-section {
+//    text-align: center;
+//    color: white;
+//    padding: 20px;
+//}
+//.search-box {
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//    margin-bottom: 20px;
+//}
+//.product-category {
+//    width: 200px;
+//    text-align: center;
+//    text-align-last: center;
+//}
+//.search-input {
+//    width: 300px;
+//    background-color: rgb(19, 23, 42);
+//    margin-right: 10px;
+//    border-color: rgba(255, 255, 255, 0.5);
+//    color: white;
+//}
+//.form-control {
+//    background-color: transparent;
+//    color: white;
+//}
+//.form-control::placeholder {
+//    color: rgba(255, 255, 255, 0.5);
+//    opacity: 1;
+//}
+//.form-control:-ms-input-placeholder {
+//    color: rgba(255, 255, 255, 0.5);
+//}
+//.form-control::-ms-input-placeholder {
+//    color: rgba(255, 255, 255, 0.5);
+//}
+//.product-item {
+//    background-color: rgb(19, 23, 42);
+//    border: 1px solid rgb(35, 39, 61);
+//    border-radius: 20px;
+//    padding: 20px;
+//    margin-bottom: 20px;
+//}
+//.product-image {
+//    width: 100%;
+//    height: auto;
+//    margin-bottom: 10px;
+//}
+//.product-name {
+//    color: white;
+//}
+//.product-price {
+//    color: white;
+//}
+//.product-actions {
+//    display: flex;
+//    justify-content: center;
+//    margin-top: 20px;
+//}
+//.space-x {
+//    margin: 0 5px;
+//}

@@ -1,0 +1,252 @@
+<div class="intro-section">
+  <h1>Product List</h1>
+  <div class="search-box">
+    <input
+      type="text"
+      placeholder="Search products..."
+      (input)="onSearchChange($event)"
+      class="search-input form-control"
+    />
+    <select (change)="onCategoryChange($event)" class="form-control">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+    <button (click)="filterProducts()" class="btn btn-primary">Search</button>
+  </div>
+</div>
+
+<div class="product-list">
+  <div class="product-item" *ngFor="let product of filteredProducts">
+    <img
+      [src]="product.thumbnail"
+      [alt]="product.name"
+      class="product-image"
+    />
+    <div class="product-name">{{ product.name }}</div>
+    <div class="product-price">{{ product.price | currency }}</div>
+    <div class="product-actions">
+      <button class="btn btn-success space-x">Add to Cart</button>
+      <button class="btn btn-info space-x">View Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination-controls">
+  <button (click)="previousPage()" [disabled]="currentPage <= 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+</div>
+
+<!--<div class="container">-->
+<!--    <div class="intro-section">-->
+<!--        <h1>Danh sách sản phẩm</h1>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; search box, combo box &ndash;&gt;-->
+<!--    <div class="search-box">-->
+<!--        <input type="text" class="form-control search-input" placeholder="Tìm sản phẩm">-->
+<!--        <select class="form-control product-category">-->
+<!--            <option selected disabled>Danh mục sản phẩm</option>-->
+<!--            <option>Áo</option>-->
+<!--            <option>Quần</option>-->
+<!--            <option>Váy</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--  <ul class="product-list">-->
+<!--    <li ng-repeat="product in products" class="product-item">-->
+<!--      <img ng-src="{{ product.thumbnail }}" alt="{{ product.name }}" class="product-image" />-->
+<!--      <div class="product-info">-->
+<!--        <strong>{{ product.name }}</strong> - {{ product.price | currency }}<br />-->
+<!--        Category: {{ product.category.name }}-->
+<!--        <div class="product-actions">-->
+<!--          <button class="btn btn-primary" ng-click="addToCart(product)">Thêm vào giỏ hàng</button>-->
+<!--          <button class="btn btn-success" ng-click="buyNow(product)">Mua ngay</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/bfeb8a49b948f237f306098f48acb738"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 1</h3>-->
+<!--                <p class="product-price">Giá: $10</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/sg-11134201-7rcdx-ltv75iq3759j5f"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 2</h3>-->
+<!--                <p class="product-price">Giá: $10</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://down-vn.img.susercontent.com/file/9243fd0e1f54d729c6cce07da9a0b699"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 3</h3>-->
+<!--                <p class="product-price">Giá: $10</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://img.ws.mms.shopee.vn/115d04b4b596437abce363092f7fb37b"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 4</h3>-->
+<!--                <p class="product-price">Giá: $10</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/340/361/products/quantrackpantdangsuongfirebird-9def4b64-0281-4dfa-ae5c-998cf63aacaf.jpg?v=1729052769887"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 5</h3>-->
+<!--                <p class="product-price">Giá: $13</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://thomasnguyen.vn/wp-content/uploads/2022/08/quan-tay-nu-dong-phuc-thomas-nguyen-uniform-2.jpg"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 6</h3>-->
+<!--                <p class="product-price">Giá: $13</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://zizoou.com/cdn/shop/products/Quan-Baggy-Jean-nam-nu-2b-1-Quan-ong-rong-xanh-classic-ZiZoou-Store_4472x.jpg?v=1680283265"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 7</h3>-->
+<!--                <p class="product-price">Giá: $13</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://bizweb.dktcdn.net/100/399/392/files/dc8158e832f8d7854b58eb5972a460f5.jpg?v=1657302721409"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 8</h3>-->
+<!--                <p class="product-price">Giá: $13</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://lh3.googleusercontent.com/proxy/ZJgrlTu0_9am7wnmOFl38gre8CDzgBaoLCToump1VnohR7hAr0WN-E3qSg1vxnrBz28x4v0gkfwSamzWgD4AENQ3Tcq5nfOeZ-n97TKkPBkmLAl3HbAwO-9KQFrhjJpqqRZXC9BCm4_vRQQnmGJ7hJ2YV0WE7KbFlA"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 9</h3>-->
+<!--                <p class="product-price">Giá: $15</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://image.made-in-china.com/2f0j00CeuqZvUBfMbR/Summer-Senior-High-School-Shirt-Jk-Uniform-Plaid-Skirt-School-Uniform.webp"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 10</h3>-->
+<!--                <p class="product-price">Giá: $15</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://img.lazcdn.com/g/p/2bcaab2cbc5284331a575cfc7b54eef7.jpg_720x720q80.jpg"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 11</h3>-->
+<!--                <p class="product-price">Giá: $15</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://vancasdream.com/wp-content/uploads/2021/09/BSnRTXp.jpeg"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 12</h3>-->
+<!--                <p class="product-price">Giá: $15</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-lg-4 col-md-6">-->
+<!--            <div class="product-item">-->
+<!--                <img src="https://dosi-in.com/file/detailed/359/dosiin-zune-zx-ao-vest-yukki-blazerdenzunezx-359922359922.jpg?w=670&h=670&fit=fill&fm=webp"-->
+<!--                alt="Product Image"-->
+<!--                class="product-image">-->
+<!--                <h3 class="product-name">Product 13</h3>-->
+<!--                <p class="product-price">Giá: $17</p>-->
+<!--                <div class="product-actions">-->
+<!--                    <button class="btn btn-primary">Thêm vào giỏ hàng</button>-->
+<!--                    <span class="space-x"></span>-->
+<!--                    <button class="btn btn-success">Mua ngay</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
